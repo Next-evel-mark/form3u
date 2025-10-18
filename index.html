@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THEE U CHRONICLES 23/26</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #121212;
+            color: #f0f0f0;
+            line-height: 1.6;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        
+        body.light-theme {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .light-theme header {
+            background: linear-gradient(135deg, #4e54c8, #8f94fb);
+            color: #fff;
+        }
+        
+        .header-message {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding: 0 20px;
+            animation: slideIn 2s ease-out;
+            color: #e94560;
+            font-weight: bold;
+        }
+        
+        .light-theme .header-message {
+            color: #fff;
+        }
+        
+        .typing-container {
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .typing-text {
+            font-size: 1.5rem;
+            color: #0f8bff;
+            border-right: 2px solid #0f8bff;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        .light-theme .typing-text {
+            color: #4e54c8;
+            border-right-color: #4e54c8;
+        }
+        
+        .stream-description {
+            max-width: 800px;
+            margin: 0 auto 20px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .creators {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .creator {
+            background-color: #0f3460;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .light-theme .creator {
+            background-color: #4e54c8;
+            color: #fff;
+        }
+        
+        .toc-section {
+            background-color: #1a1a2e;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .light-theme .toc-section {
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .toc-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #e94560;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .light-theme .toc-title {
+            color: #4e54c8;
+        }
+        
+        .toc-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .toc-button {
+            background: linear-gradient(135deg, #0f3460, #1a1a2e);
+            color: white;
+            border: none;
+            padding: 20px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        .light-theme .toc-button {
+            background: linear-gradient(135deg, #8f94fb, #4e54c8);
+        }
+        
+        .toc-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #e94560, #0f3460);
+        }
+        
+        .light-theme .toc-button:hover {
+            background: linear-gradient(135deg, #e94560, #8f94fb);
+        }
+        
+        .section {
+            background-color: #1a1a2e;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .light-theme .section {
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: #e94560;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #e94560;
+            padding-bottom: 10px;
+        }
+        
+        .light-theme .section-title {
+            color: #4e54c8;
+            border-bottom-color: #4e54c8;
+        }
+        
+        .subsection-title {
+            font-size: 1.8rem;
+            margin: 30px 0 15px;
+            color: #0f8bff;
+        }
+        
+        .light-theme .subsection-title {
+            color: #4e54c8;
+        }
+        
+        .nicknames-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .list-item {
+            background-color: #0f3460;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .light-theme .list-item {
+            background-color: #e6e6ff;
+        }
+        
+        .list-item:hover {
+            transform: translateX(10px);
+        }
+        
+        .name {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .nickname {
+            color: #e94560;
+            font-style: italic;
+            text-align: right;
+        }
+        
+        .light-theme .nickname {
+            color: #4e54c8;
+        }
+        
+        .instagram-btn {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-right: 10px;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .instagram-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .instagram-btn i {
+            font-size: 1.1rem;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .gallery-item {
+            background-color: #0f3460;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .light-theme .gallery-item {
+            background-color: #e6e6ff;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .gallery-caption {
+            padding: 15px;
+            font-style: italic;
+            text-align: center;
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #e94560;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+        }
+        
+        .light-theme .theme-toggle {
+            background-color: #4e54c8;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #e94560;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            background-color: #0f8bff;
+        }
+        
+        .light-theme .back-to-top {
+            background-color: #4e54c8;
+        }
+        
+        .light-theme .back-to-top:hover {
+            background-color: #8f94fb;
+        }
+        
+        .audio-controls {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background-color: #0f3460;
+            padding: 10px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+        
+        .light-theme .audio-controls {
+            background-color: #4e54c8;
+            color: white;
+        }
+        
+        .audio-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .audio-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background-color: #0f3460;
+            border-radius: 10px;
+            color: #aaa;
+        }
+        
+        .light-theme footer {
+            background-color: #4e54c8;
+            color: #fff;
+        }
+        
+        .acknowledgements {
+            margin-top: 20px;
+            font-style: italic;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #0f8bff; }
+        }
+        
+        @media (max-width: 768px) {
+            .header-message {
+                font-size: 1.4rem;
+            }
+            
+            .typing-text {
+                font-size: 1.2rem;
+            }
+            
+            .toc-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .nicknames-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .audio-controls {
+                bottom: 90px;
+                left: 20px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <i class="fas fa-moon"></i>
+        </button>
+        
+        <div class="audio-controls">
+            <button class="audio-btn" onclick="toggleMusic()">
+                <i class="fas fa-music"></i>
+            </button>
+            <span>Background Music</span>
+        </div>
+        
+        <header>
+            <div class="header-message">
+                This is thee u chronicles website by Riko boy (Next_level_Technologies) Marcel(Mistari Nane) and Harlow (seventy 7)
+            </div>
+            
+            <div class="typing-container">
+                <div class="typing-text">THEE GREAT U STREAM - THE BEST IN FSK</div>
+            </div>
+            
+            <div class="stream-description">
+                Thee Great U stream is the undisputed champion of FSK, excelling both academically and co-curricularly. With unparalleled talent and determination, we've set records in sports, arts, and academics, making us the most respected stream in the school's history.
+            </div>
+            
+            <div class="creators">
+                <div class="creator">Riko boy (Next_level_Technologies)</div>
+                <div class="creator">Marcel (Mistari Nane)</div>
+                <div class="creator">Harlow (seventy 7)</div>
+            </div>
+        </header>
+        
+        <section class="toc-section">
+            <h2 class="toc-title">TABLE OF CONTENTS</h2>
+            <div class="toc-buttons">
+                <button class="toc-button" onclick="scrollToSection('nicknames')">1. Nick Names</button>
+                <button class="toc-button" onclick="scrollToSection('class-gees')">2. Class Gees 24/25</button>
+                <button class="toc-button" onclick="scrollToSection('instagram')">3. Instagram Accounts</button>
+                <button class="toc-button" onclick="scrollToSection('key-things')">4. Key Things</button>
+                <button class="toc-button" onclick="scrollToSection('gallery')">5. Gallery</button>
+                <button class="toc-button" onclick="scrollToSection('library')">6. Library</button>
+            </div>
+        </section>
+        
+        <section id="nicknames" class="section">
+            <h2 class="section-title">NICK NAMES</h2>
+            <div class="nicknames-grid">
+                <div class="list-item">
+                    <div class="name">Vicktor wa Miwani</div>
+                    <div class="nickname">Wajackoya; Professor</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Keffa</div>
+                    <div class="nickname">Pedi; Plug wa stanjo; Escobar</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Cecil</div>
+                    <div class="nickname">C-Kay</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Mark</div>
+                    <div class="nickname">Riko boy</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Chesinen</div>
+                    <div class="nickname">Blue black, Moses, Starch</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Lionel</div>
+                    <div class="nickname">Chief</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Jatelo</div>
+                    <div class="nickname">Jatzz, Giza</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Anto</div>
+                    <div class="nickname">Fossils, Kokoto</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Ramsey</div>
+                    <div class="nickname">Doggy, Bosco</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Samuel wa phyc</div>
+                    <div class="nickname">Baroda</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Damian</div>
+                    <div class="nickname">Marcel</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Olinga</div>
+                    <div class="nickname">Mwala</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Jack</div>
+                    <div class="nickname">Harlow, Wenja</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Bethuel</div>
+                    <div class="nickname">Matakwei</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Roymond</div>
+                    <div class="nickname">Dr.Matii, Kalale</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Kirk</div>
+                    <div class="nickname">Lale</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Shawn</div>
+                    <div class="nickname">Okwonkwo</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Mwendwa</div>
+                    <div class="nickname">Short man</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Victor (Lightskin)</div>
+                    <div class="nickname">Otis</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Dismas</div>
+                    <div class="nickname">Sikoko</div>
+                </div>
+                <div class="list-item">
+                    <div class="name">Trevor</div>
+                    <div class="nickname">Squareroot</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="class-gees" class="section">
+            <h2 class="section-title">CLASS GEES 25/26</h2>
+            
+            <h3 class="subsection-title">1. Ilumingwati</h3>
+            <div class="list-item">
+                <div class="name">Marcelo</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Harlow</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Doggy</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Kololi</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Amwayii</div>
+            </div>
+            
+            <h3 class="subsection-title">2. Most sexy Girlfriend</h3>
+            <div class="list-item">
+                <div class="name">This is a sensitive information</div>
+            </div>
+            
+            <h3 class="subsection-title">3. Most funkies</h3>
+            <div class="list-item">
+                <div class="name">Mark</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Damian</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Jack</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Jatzz</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Doggy</div>
+            </div>
+            
+            <h3 class="subsection-title">4. Suspension</h3>
+            <div class="list-item">
+                <div class="name">Okwonkwo</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Keffa</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Abdi</div>
+            </div>
+            
+            <h3 class="subsection-title">5. Majamaa ya miwani</h3>
+            <div class="list-item">
+                <div class="name">Mark</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Kololi</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Damian</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Blueblack</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Lionel</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Abdi</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Innocent</div>
+            </div>
+            
+            <h3 class="subsection-title">6. Gamers</h3>
+            <div class="list-item">
+                <div class="name">Damian</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Anyanga</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Cecil</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Ramsey</div>
+            </div>
+            
+            <h3 class="subsection-title">7. Foot ballers</h3>
+            <div class="list-item">
+                <div class="name">Damian</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Desi</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Anyanga</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Anto</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Job</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Danza</div>
+            </div>
+            
+            <h3 class="subsection-title">8. Majamaa wana bo🤧🤧</h3>
+            <div class="list-item">
+                <div class="name">Maina</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Kirk</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Sky</div>
+            </div>
+            
+            <h3 class="subsection-title">9. Dancers</h3>
+            <div class="list-item">
+                <div class="name">Jack/Harlow/Seventy7</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Robi wa Nicky</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Ramsey</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Danza</div>
+            </div>
+            
+            <h3 class="subsection-title">10. Wasanii</h3>
+            <div class="list-item">
+                <div class="name">Matrix</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Anto</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Ramsey</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Annan</div>
+            </div>
+            
+            <h3 class="subsection-title">11. Most hardworking niggas</h3>
+            <div class="list-item">
+                <div class="name">Kirk</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Sikoko</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Maina</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Marshal</div>
+            </div>
+            
+            <h3 class="subsection-title">12. Ngoso most</h3>
+            <div class="list-item">
+                <div class="name">Alukwe</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Sky</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Craig</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Lionel</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Maina</div>
+            </div>
+            
+            <h3 class="subsection-title">13. Class author</h3>
+            <div class="list-item">
+                <div class="name">Harlow</div>
+            </div>
+            <div class="list-item">
+                <div class="name">xeffa</div>
+            </div>
+            
+            <h3 class="subsection-title">14. Producers</h3>
+            <div class="list-item">
+                <div class="name">Mark</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Jatzz</div>
+            </div>
+            
+            <h3 class="subsection-title">15. Cool kids</h3>
+            <div class="list-item">
+                <div class="name">Job</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Abiud</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Innocent</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Craig</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Keynotti</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Kokoto</div>
+            </div>
+            
+            <h3 class="subsection-title">16. Christian union</h3>
+            <div class="list-item">
+                <div class="name">Kirk</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Sky</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Martial</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Alukwe</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Sikoko</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Mutambi</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Ezra</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Bedan</div>
+            </div>
+            
+            <h3 class="subsection-title">17. Sowshiiz</h3>
+            <div class="list-item">
+                <div class="name">C kay</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Mark</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Damian</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Harlow</div>
+            </div>
+            
+            <h3 class="subsection-title">18. Back benchers</h3>
+            <div class="list-item">
+                <div class="name">Jay d</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Henrick</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Nesta</div>
+            </div>
+            <div class="list-item">
+                <div class="name">MCA</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Anto</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Marcelo</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Chief (Lionel)</div>
+            </div>
+            
+            <h3 class="subsection-title">19. Content creators</h3>
+            <div class="list-item">
+                <div class="name">C kay nation</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Marcelo</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Harlow</div>
+            </div>
+            
+            <h3 class="subsection-title">20. Software Engineers/Computer niggas🩷🩷</h3>
+            <div class="list-item">
+                <div class="name">Mark</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Sam</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Kirk</div>
+            </div>
+        </section>
+        
+        <section id="instagram" class="section">
+            <h2 class="section-title">INSTAGRAM ACCOUNTS</h2>
+            <div class="list-item">
+                <a href="https://instagram.com/next_level_mark" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> next_level_mark
+                </a>
+                <div class="name">Mark</div>
+            </div>
+            <div class="list-item">
+                <a href="https://instagram.com/onerank_sam" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> onerank_sam
+                </a>
+                <div class="name">Samuel</div>
+            </div>
+            <div class="list-item">
+                <a href="https://instagram.com/madry_.tv" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> madry_.tv
+                </a>
+                <div class="name">Marcelo</div>
+            </div>
+            <div class="list-item">
+                <a href="https://instagram.com/__har.low" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> __har.low
+                </a>
+                <div class="name">Jack</div>
+            </div>
+            <div class="list-item">
+                <a href="https://instagram.com/ckaynation.ke" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> ckaynation.ke
+                </a>
+                <div class="name">Ckay</div>
+            </div>
+            <div class="list-item">
+                <a href="https://instagram.com/samuel_wheatly" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> samuel_wheatly
+                </a>
+                <div class="name">sam</div>
+            </div>
+            <div class="list-item">
+                <a href="https://instagram.com/mad_pandar" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> mad_pandar
+                </a>
+                <div class="name">Keffa</div>
+            </div>
+            <div class="list-item">
+                <a href="https://instagram.com/wayne_baraka" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> wayne_baraka
+                </a>
+                <div class="name">kololi</div>
+            </div>
+            <div class="list-item">
+                <a href="https://instagram.com/v.a.l.d.e.z" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> v.a.l.d.e.z
+                </a>
+                <div class="name">Jay d</div>
+            </div>
+            <div class="list-item">
+                <a href="https://instagram.com/freeky_.robin" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> freeky_.robin
+                </a>
+                <div class="name">Robi</div>
+            </div>
+            <div class="list-item">
+                <a href="https://instagram.com/roony_icy" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> roony_icy
+                </a>
+                <div class="name">Yeko</div>
+            </div>
+            <div class="list-item">
+                <a href="https://instagram.com/wrld.of.gripheen_" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> wrld.of.gripheen_
+                </a>
+                <div class="name">Alukwe</div>
+            </div>
+            <div class="list-item">
+                <a href="https://instagram.com/tim.drk_ray" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> tim.drk_ray
+                </a>
+                <div class="name">Mwendwa</div>
+            </div>
+            <div class="list-item">
+                <a href="https://instagram.com/kang.k" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> kang.k
+                </a>
+                <div class="name">kirk</div>
+            </div>
+            <div class="list-item">
+                <a href="https://instagram.com/_jaunty.jayz" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> _jaunty.jayz
+                </a>
+                <div class="name">Jabez</div>
+            </div>
+            <div class="list-item">
+                <a href="https://instagram.com/_.carsoninho" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> _.carsoninho
+                </a>
+                <div class="name">Ramsy</div>
+            </div>
+        </section>
+        
+        <section id="key-things" class="section">
+            <h2 class="section-title">KEY THINGS</h2>
+            <div class="list-item">
+                <div class="name">Breko</div>
+                <div class="nickname">Response TBT akijidai ako na ganji</div>
+            </div>
+            <div class="list-item">
+                <div class="name">NKT!</div>
+                <div class="nickname">After sky ametoa dry</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Lab Ninjas</div>
+                <div class="nickname">Kumaliza fruits before experiments kuanza</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Sopling velocity</div>
+                <div class="nickname">Ku slopia karao wa 2u a nock kwa mlango</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Silent fans</div>
+                <div class="nickname">Vita ya Athuman na Derro</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Damian-Kiftoo</div>
+                <div class="nickname">Rugby field on this day 18/06/2025 at 8:40 am</div>
+            </div>
+            <div class="list-item">
+                <div class="name">Peer entertainment</div>
+                <div class="nickname">Mboka doba sunday jioni🤟 by Mark</div>
+            </div>
+            <div class="list-item">
+                <div class="name">First tissue</div>
+                <div class="nickname">Desmond kupewa tp na sabuni na Mtoi wa Roto na bado anaomba tp</div>
+            </div>
+            <div class="list-item">
+                <div class="name">The slap</div>
+                <div class="nickname">Brantany😭😭</div>
+            </div>
+            <div class="list-item">
+                <div class="name">THE SLAP PT 2</div>
+                <div class="nickname">As usual around 9:40pm after c kay amebonda ko collect paper bila kujua huyo mode ni Allan oa tunya/ the Slap that thunders</div>
+            </div>
+        </section>
+        
+        <section id="gallery" class="section">
+            <h2 class="section-title">GALLERY</h2>
+            <div class="gallery" id="gallery-container">
+                <!-- Gallery items will be generated by JavaScript -->
+            </div>
+        </section>
+        
+        <section id="library" class="section">
+            <h2 class="section-title">LIBRARY</h2>
+            <div class="list-item">
+                <div class="name">Library resources coming soon...</div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>THEE U CHRONICLES 23/26 - Created by Riko boy, Marcel & Harlow</p>
+            <div class="acknowledgements">
+                Special thanks to our class teacher Mrs. Carolyne and all our teachers: Mr. Wanda, Mr. Kasili, Mrs. Lilian, Mr. Kituyi, Mr. Makari, Annan, Mr. Josiah. And to our parents for their unwavering support.
+            </div>
+        </footer>
+        
+        <div class="back-to-top" onclick="scrollToTop()">
+            <i class="fas fa-arrow-up"></i>
+        </div>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-tech-house-vibes-130.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+            const themeIcon = document.querySelector('.theme-toggle i');
+            if (document.body.classList.contains('light-theme')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        }
+
+        // Background music control
+        const bgMusic = document.getElementById('bg-music');
+        let musicPlaying = false;
+
+        function toggleMusic() {
+            if (musicPlaying) {
+                bgMusic.pause();
+                musicPlaying = false;
+            } else {
+                bgMusic.play().catch(e => {
+                    console.log("Audio play failed:", e);
+                    alert("Click anywhere on the page to enable audio, then click the music button again.");
+                });
+                musicPlaying = true;
+            }
+        }
+
+        // Enable audio on first user interaction
+        document.addEventListener('click', function() {
+            if (bgMusic.paused && !musicPlaying) {
+                bgMusic.play().then(() => {
+                    bgMusic.pause();
+                    musicPlaying = false;
+                }).catch(e => console.log("Audio initialization failed:", e));
+            }
+        }, { once: true });
+
+        // Navigation functions
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+        
+        function scrollToTop() {
+            window.scrollTo({ 
+                top: 0, 
+                behavior: 'smooth' 
+            });
+        }
+
+        // Show/hide back to top button based on scroll position
+        window.addEventListener('scroll', function() {
+            const backToTopButton = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTopButton.style.display = 'flex';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+
+        // Generate gallery items
+        function generateGallery() {
+            const galleryContainer = document.getElementById('gallery-container');
+            const jokes = [
+                "When Form 3U forced velocity to nock...",
+                "FSK lab: Where fruits disappear before experiments",
+                "That time Damian fought Kiftoo on the rugby field no body won",
+                "Brantany and the legendary slap heard across FSK",
+                "Mr. Wanda's chemeistry class be like: 'sapunification,Sapa'",
+                "The day Sky made everything dry with one comment",
+                "Form 3U's silent fans during Athuman vs Derro fight",
+                "Peer entertainment Sundays with Mark's mboka doba",
+                "Desmond and the never-ending tissue saga",
+                "C Kay bonding and the thunderous slap part 2",
+                "When Lab Ninjas strike during biology practicals",
+                "The great Form 3U vs Form 4 debate of 2024",
+                "That time we tried to break the sopling velocity record",
+                "FSK's legendary Christian Union meetings",
+                "When the backbenchers actually answered a question",
+                "The day victor failed to record",
+                "Form 3U's football team: Unbeatable legends",
+                "When the dancers showed up at the talent show",
+                "That time the producers dropped a fire track",
+                "The cool kids corner: Always fresh, always clean",
+                "When the content creators went viral",
+                "Software engineers debugging life one problem at a time",
+                "Ilumingwati: ngwatti",
+                "Suspension list: The hall of fame",
+                "Majamaa ya miwani: Visionaries of FSK",
+                "Most sexy girlfriend: Ni dem ya nani information",
+                "Most funkies: Keeping the class updated...kupunguza kutu",
+                "Ngoso most: The shoga champions",
+                "Class authors: Writing our legacy",
+                "Sowshiiz: The social butterflies of 3U"
+            ];
+
+            for (let i = 0; i < 30; i++) {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                
+                const img = document.createElement('img');
+                img.className = 'gallery-img';
+                // Using placeholder images from picsum.photos
+                img.src = `https://picsum.photos/300/200?random=${i+1}`;
+                img.alt = `Gallery image ${i+1}`;
+                
+                const caption = document.createElement('div');
+                caption.className = 'gallery-caption';
+                caption.textContent = jokes[i];
+                
+                galleryItem.appendChild(img);
+                galleryItem.appendChild(caption);
+                galleryContainer.appendChild(galleryItem);
+            }
+        }
+
+        // Initialize the gallery when the page loads
+        window.addEventListener('DOMContentLoaded', generateGallery);
+    </script>
+</body>
+</html>
