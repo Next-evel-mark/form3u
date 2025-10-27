@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THEE U CHRONICLES</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --text: #f1f1f1;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            color: var(--highlight);
+            letter-spacing: 2px;
+        }
+        
+        .developers {
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+        }
+        
+        .developers a {
+            color: var(--highlight);
+            text-decoration: none;
+            margin: 0 5px;
+            transition: all 0.3s;
+        }
+        
+        .developers a:hover {
+            text-decoration: underline;
+            transform: translateY(-2px);
+        }
+        
+        .toc {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .toc h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--highlight);
+        }
+        
+        .toc ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            list-style: none;
+        }
+        
+        .toc li {
+            margin-bottom: 8px;
+        }
+        
+        .toc a {
+            color: var(--text);
+            text-decoration: none;
+            display: block;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .toc a:hover {
+            background: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--highlight);
+            font-size: 2rem;
+            border-bottom: 2px solid var(--highlight);
+            padding-bottom: 10px;
+        }
+        
+        .list-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .list-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .list-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .emoji {
+            font-size: 1.8rem;
+            margin-right: 15px;
+            width: 40px;
+            text-align: center;
+        }
+        
+        .instagram-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 15px;
+            filter: invert(1);
+        }
+        
+        .settings-menu {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+        
+        .settings-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .settings-btn:hover {
+            background: var(--highlight);
+            transform: rotate(90deg);
+        }
+        
+        .password-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .password-content {
+            background: var(--secondary);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .password-content h3 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--highlight);
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+        }
+        
+        .password-btn {
+            background: var(--highlight);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        
+        .password-btn:hover {
+            background: #ff2e4f;
+        }
+        
+        .edit-mode {
+            outline: 2px dashed var(--highlight);
+            padding: 5px;
+        }
+        
+        .visitor-counter {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .list-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .toc ul {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="settings-menu">
+        <button class="settings-btn" id="settingsBtn">⚙️</button>
+    </div>
+    
+    <div class="password-modal" id="passwordModal">
+        <div class="password-content">
+            <h3>Enter Password to Edit</h3>
+            <input type="password" class="password-input" id="passwordInput" placeholder="Enter password">
+            <button class="password-btn" id="passwordSubmit">Submit</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1>𝐓𝐇𝐄𝐄 𝐔 𝐂𝐇𝐑𝐎𝐍𝐈𝐂𝐋𝐄𝐒</h1>
+            <div class="developers">
+                Developed by 
+                <a href="https://instagram.com/next_level_mark" target="_blank">𝕸𝖆𝖗𝖐</a> 
+                under 
+                <a href="https://instagram.com/har..low" target="_blank">𝕳𝖆𝖗𝖑𝖔𝖜</a> 
+                and 
+                <a href="https://instagram.com/mar.c.e.l" target="_blank">𝕸𝖆𝖗𝖈𝖊𝖑'𝖘</a> 
+                Instruction
+            </div>
+        </header>
+        
+        <div class="toc">
+            <h2>Table of Contents</h2>
+            <ul>
+                <li><a href="#members">1. 𝙼𝚎𝚖𝚋𝚎𝚛𝚜</a></li>
+                <li><a href="#teachers">2. 𝚃𝚎𝚊𝚌𝚑𝚎𝚛𝚜</a></li>
+                <li><a href="#nicknames">3. 𝙽𝚒𝚌𝚔𝚗𝚊𝚖𝚎𝚜</a></li>
+                <li><a href="#instagram">4. 𝙸𝚗𝚜𝚝𝚊𝚐𝚛𝚊𝚖 𝚊𝚌𝚌𝚘𝚞𝚗𝚝𝚜</a></li>
+                <li><a href="#gees">5. 𝙲𝚕𝚊𝚜𝚜 𝙶𝚎𝚎𝚜</a></li>
+                <li><a href="#keythings">6. 𝙺𝚎𝚢 𝚝𝚑𝚒𝚗𝚐𝚜 𝙵3</a></li>
+                <li><a href="#memes">7. 𝙲𝚕𝚊𝚜𝚜 𝚖𝚎𝚖𝚎𝚜</a></li>
+                <li><a href="#backbenchers">8. 𝙱𝚊𝚌𝚔 𝚋𝚎𝚗𝚌𝚑𝚎𝚛'𝚜 𝙳𝚎𝚜𝚔</a></li>
+                <li><a href="#about">9. 𝙰𝚋𝚘𝚞𝚝 𝙼𝚊𝚛𝚌𝚎𝚕,𝙷𝚊𝚛𝚕𝚘𝚠 𝚊𝚗𝚍 𝙼𝚊𝚛𝚔</a></li>
+            </ul>
+        </div>
+        
+        <div class="section" id="members">
+            <h2>Class Members</h2>
+            <div class="list-container" id="membersList">
+                <!-- Members will be added by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="section" id="teachers">
+            <h2>Teachers</h2>
+            <div class="list-container" id="teachersList">
+                <!-- Teachers will be added by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="section" id="nicknames">
+            <h2>Nicknames</h2>
+            <div class="list-container" id="nicknamesList">
+                <!-- Nicknames will be added by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="section" id="instagram">
+            <h2>Instagram Accounts</h2>
+            <div class="list-container" id="instagramList">
+                <!-- Instagram accounts will be added by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="section" id="gees">
+            <h2>Class Gees</h2>
+            <div class="list-container">
+                <div class="list-item">Coming soon...</div>
+            </div>
+        </div>
+        
+        <div class="section" id="keythings">
+            <h2>Key Things F3</h2>
+            <div class="list-container">
+                <div class="list-item">Coming soon...</div>
+            </div>
+        </div>
+        
+        <div class="section" id="memes">
+            <h2>Class Memes</h2>
+            <div class="list-container">
+                <div class="list-item">Coming soon...</div>
+            </div>
+        </div>
+        
+        <div class="section" id="backbenchers">
+            <h2>Back Bencher's Desk</h2>
+            <div class="list-container">
+                <div class="list-item">Coming soon...</div>
+            </div>
+        </div>
+        
+        <div class="section" id="about">
+            <h2>About Marcel, Harlow and Mark</h2>
+            <div class="list-container">
+                <div class="list-item">Information about the developers coming soon...</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="visitor-counter" id="visitorCounter">
+        Visitors: <span id="count">0</span>
+    </div>
+
+    <script>
+        // Emojis for profile pictures
+        const emojis = ['😀', '😎', '🤓', '😊', '🤩', '😇', '🧐', '🤠', '😄', '😁', 
+                       '😂', '🤣', '😆', '😅', '😋', '😜', '🤪', '😝', '🤑', '🤗',
+                       '🤭', '🤫', '🤔', '😐', '😑', '😶', '😏', '😒', '🙄', '😬',
+                       '🤥', '😌', '😔', '😪', '🤤', '😴', '😷', '🤒', '🤕', '🤢',
+                       '🤮', '🤧', '🥵', '🥶', '🥴', '😵', '🤯', '🤠', '🥳', '😎'];
+        
+        // Data for members
+        const members = [
+            "𝐕𝐢𝐜𝐭𝐨𝐫", "𝐃𝐚𝐧𝐳𝐚", "𝐊𝐞𝐟𝐟𝐚", "𝐂𝐞𝐞-𝐤𝐚𝐲", "𝐂𝐡𝐞𝐬𝐢𝐧𝐞𝐧", "𝐋𝐢𝐨𝐧𝐞𝐥", 
+            "𝐉𝐚𝐭𝐞𝐥𝐨", "𝐀𝐧𝐭𝐨", "𝐑𝐚𝐦𝐬𝐞𝐲", "𝐁𝐚𝐫𝐨𝐝𝐚", "𝐌𝐚𝐫𝐜𝐞𝐥𝐨", "𝐎𝐥𝐢𝐧𝐠𝐚", 
+            "𝐎𝐥𝐢𝐧𝐝𝐚", "𝐇𝐚𝐫𝐥𝐨𝐰", "𝐁𝐞𝐭𝐡𝐮𝐞𝐥", "𝐃𝐫.𝐌𝐚𝐭𝐭𝐢", "𝐀𝐧𝐲𝐚𝐧𝐠𝐚", "𝐊𝐢𝐫𝐤", 
+            "𝐍𝐚𝐤𝐢𝐭𝐚𝐫𝐞", "𝐒𝐡𝐚𝐰𝐧", "𝐌𝐰𝐞𝐧𝐝𝐰𝐚", "𝐕𝐢𝐜𝐭𝐨𝐫", "𝐃𝐢𝐬𝐦𝐮𝐬", "𝐓𝐫𝐞𝐯𝐨𝐫", 
+            "𝐁𝐞𝐣𝐚𝐡", "𝐋𝐮𝐤𝐮𝐬𝐢", "𝐖𝐚𝐲𝐧𝐞", "𝐑𝐨𝐛𝐢𝐧", "𝐊𝐢𝐧𝐨𝐭𝐢", "𝐆𝐚𝐛𝐮", 
+            "𝐃𝐚𝐩𝐚𝐬𝐡", "𝐀𝐧𝐚𝐚𝐧", "𝐊𝐡𝐢𝐬𝐚", "𝐑𝐨𝐫𝐨", "𝐓𝐚𝐧𝐮𝐢", "𝐌𝐚𝐫𝐤", 
+            "𝐁𝐮𝐫𝐚𝐥𝐞", "𝐁𝐢𝐝𝐞𝐧", "𝐀𝐯𝐞𝐝𝐢", "𝐏𝐮𝐫𝐯𝐞𝐥", "𝐀𝐥𝐮𝐤𝐰𝐞", "𝐀𝐭𝐡𝐮𝐦𝐚𝐧", 
+            "𝐀𝐛𝐝𝐢", "𝐎𝐰𝐞𝐧", "𝐓𝐫𝐞𝐯𝐨𝐫", "𝐏𝐞𝐭𝐞𝐫", "𝐊𝐢𝐩𝐭𝐨𝐨", "𝐄𝐦𝐚𝐜𝐡", 
+            "𝐒𝐭𝐚𝐧𝐧𝐨", "𝐉𝐨𝐛"
+        ];
+        
+        // Data for teachers
+        const teachers = [
+            "𝗠𝗿.𝗪𝗮𝗻𝗱𝗮", "𝗺𝗿𝘀.𝗟𝗶𝗹𝗶𝗮𝗻", "𝗠𝗿𝘀.𝗪𝗮𝗯𝘄𝗶𝗹𝗲", "𝗠𝗿.𝗘𝗿𝗶𝗰", 
+            "𝗠𝗿.𝗟𝘂𝗸𝗼𝗿𝗶𝘁𝗼", "𝗠𝗿.𝗡𝘆𝗼𝗻𝗴𝗲𝘀𝗮", "𝗠𝗿.𝗔𝗻𝗻𝗮𝗻", "𝗠𝗿.𝗞𝗶𝘁𝘂𝘆𝗶", 
+            "𝗠𝗿.𝗞𝗮𝘀𝗶𝗹𝗶", "𝗠𝗿.𝗝𝗼𝘀𝗶𝗮𝗵"
+        ];
+        
+        // Data for nicknames
+        const nicknames = [
+            "𝐕𝐢𝐜𝐭𝐨𝐫 𝐖𝐚𝐣𝐚𝐤𝐨𝐲𝐚",
+            "𝐙𝐚𝐰𝐚𝐝𝐢. 𝐃𝐚𝐧𝐳𝐚",
+            "𝐂𝐞𝐜𝐢𝐥. 𝐌𝐫.𝐂 𝐤𝐚𝐲",
+            "𝐂𝐡𝐞𝐬𝐢𝐧𝐞𝐧. 𝐁𝐥𝐮𝐞 𝐛𝐥𝐚𝐜𝐤",
+            "𝐋𝐢𝐨𝐧𝐞𝐥. 𝐂𝐡𝐢𝐞𝐟",
+            "𝐉𝐚𝐭𝐞𝐥𝐨. 𝐉𝐚𝐭𝐳𝐳",
+            "𝐀𝐧𝐭𝐨. 𝐊𝐨𝐤𝐨𝐭𝐨",
+            "𝐑𝐚𝐦𝐬𝐞𝐲. 𝐃𝐨𝐠𝐠𝐲",
+            "𝐒𝐚𝐦𝐮𝐞𝐥. 𝐁𝐚𝐫𝐨𝐝𝐚",
+            "𝐊𝐡𝐢𝐬𝐚. 𝐖𝐡𝐢𝐭𝐥𝐲",
+            "𝐃𝐚𝐦𝐢𝐚𝐧. 𝐌𝐚𝐫𝐜𝐞𝐥",
+            "𝐎𝐥𝐢𝐧𝐠𝐚. 𝐒𝐡𝐨𝐫𝐭 𝐦𝐚𝐧",
+            "𝐉𝐚𝐜𝐤. 𝐇𝐚𝐫𝐥𝐨𝐰",
+            "𝐁𝐞𝐭𝐡𝐮𝐞𝐥. 𝐦𝐚𝐭𝐚𝐤𝐰𝐞𝐢",
+            "𝐑𝐨𝐲𝐦𝐨𝐧𝐝. 𝐃𝐫.𝐌𝐚𝐭𝐭𝐫𝐞𝐬𝐬",
+            "𝐊𝐢𝐫𝐤. 𝐋𝐚𝐥𝐞",
+            "𝐍𝐚𝐤𝐢𝐭𝐚𝐫𝐞. 𝐍𝐚𝐤𝐢",
+            "𝐒𝐡𝐚𝐰𝐧 𝐤𝐢𝐠𝐞𝐧. 𝐅𝐚𝐭𝐭𝐲",
+            "𝐕𝐢𝐜𝐭𝐨𝐫 (𝐥𝐢𝐠𝐡𝐭𝐬𝐤𝐢𝐧). 𝐎𝐭𝐢𝐬",
+            "𝐃𝐢𝐬𝐦𝐮𝐬. 𝐓𝐢𝐭𝐢𝐦𝐚",
+            "𝐓𝐫𝐞𝐯𝐨𝐫. √𝐬𝐪𝐮𝐫𝐞 𝐫𝐨𝐨𝐭,𝐚𝐭𝐨𝐦",
+            "𝐁𝐞𝐣𝐚𝐡. 𝐅𝐫𝐞𝐞 𝐦𝐚𝐧",
+            "𝐒𝐢𝐦𝐢𝐲𝐮. 𝐌𝐮𝐬𝐮𝐧𝐝𝐢",
+            "𝐊𝐨𝐥𝐨𝐥𝐢. 𝐂𝐨𝐜𝐤𝐬",
+            "𝐑𝐨𝐛𝐢. 𝐖𝐡𝐢𝐭𝐞 𝐛𝐨𝐲",
+            "𝐊𝐢𝐧𝐢𝐭𝐢. 𝐌𝐂𝐀",
+            "𝐆𝐚𝐛𝐮. 𝐊𝐚𝐩𝐮",
+            "𝐃𝐚𝐩𝐚𝐬𝐡. 𝐖𝐨𝐫𝐢𝐚",
+            "𝐀𝐧𝐧𝐚𝐧. 𝐃𝐫.𝐤𝐨𝐟𝐟𝐢",
+            "𝐊𝐡𝐢𝐬𝐚. 𝐒𝐚𝐤𝐚",
+            "𝐌𝐞𝐬𝐡𝐚𝐜𝐤. 𝐓𝐚𝐣𝐢𝐫𝐢",
+            "𝐌𝐚𝐫𝐤(𝐰𝐚 𝐜𝐮). 𝐋𝐢𝐠𝐡𝐭 𝐬𝐤𝐢𝐧",
+            "𝐌𝐚𝐫𝐤 (𝐨𝐟𝐟𝐢𝐜𝐢𝐚𝐥). 𝐃𝐞𝐬𝐭𝐢𝐧𝐲😂😂"
+        ];
+        
+        // Data for Instagram accounts
+        const instagramAccounts = [
+            {name: "Marcel", handle: "mar.c.e.l_"},
+            {name: "Jack", handle: "har..low"},
+            {name: "Mark", handle: "next_level_mark"},
+            {name: "Lionel", handle: "Bra.i.niac"},
+            {name: "Jatelo", handle: "s..a..i..n..t"},
+            {name: "Biden", handle: "Holy_sinn.er234"},
+            {name: "Ceekay", handle: "ckaynation.ke"},
+            {name: "Ceekay", handle: "cee.kay.official."},
+            {name: "Khisa", handle: "wheatly77"},
+            {name: "Keffa", handle: "mad_pandar"},
+            {name: "Avedi", handle: "kid_mysterio"},
+            {name: "Gabu", handle: "Am_clean_guyz"},
+            {name: "Yeko", handle: "Roony_icyyy"},
+            {name: "Amwayi", handle: "elly_antos"},
+            {name: "Bad.boy G", handle: "Goshen"},
+            {name: "Wayne", handle: "johnstone_coax"},
+            {name: "Baroda", handle: "prime_fantasy"},
+            {name: "Ezra", handle: "e_z_r_a3594"},
+            {name: "jay d", handle: "v.a.l.d.e.z"},
+            {name: "Henry", handle: "Toxic.icy"},
+            {name: "Annan", handle: "Hood_nigga46"},
+            {name: "Bonwel", handle: "kibet_bonwel"},
+            {name: "Robi", handle: "freeky_.robin"},
+            {name: "Meshack", handle: "Brad_st.ar"},
+            {name: "Craig", handle: "yxng.ow3n"},
+            {name: "Brantany", handle: "brantany.bread"},
+            {name: "sikoo", handle: "sikoo_finest.bg"},
+            {name: "Mwendwa", handle: "tim.drk_ray"},
+            {name: "Gripheen", handle: "wrld.of.Gripheen"},
+            {name: "Naki", handle: "Toxic.jaba"},
+            {name: "Kololi", handle: "waynebaraka"},
+            {name: "Ramsey", handle: "_.carsoninho"}
+        ];
+        
+        // Populate members list
+        const membersList = document.getElementById('membersList');
+        members.forEach((member, index) => {
+            const listItem = document.createElement('div');
+            listItem.className = 'list-item';
+            listItem.innerHTML = `
+                <div class="emoji">${emojis[index % emojis.length]}</div>
+                <div>${member}</div>
+            `;
+            membersList.appendChild(listItem);
+        });
+        
+        // Populate teachers list
+        const teachersList = document.getElementById('teachersList');
+        teachers.forEach((teacher, index) => {
+            const listItem = document.createElement('div');
+            listItem.className = 'list-item';
+            listItem.innerHTML = `
+                <div class="emoji">${emojis[index % emojis.length]}</div>
+                <div>${teacher}</div>
+            `;
+            teachersList.appendChild(listItem);
+        });
+        
+        // Populate nicknames list
+        const nicknamesList = document.getElementById('nicknamesList');
+        nicknames.forEach((nickname, index) => {
+            const listItem = document.createElement('div');
+            listItem.className = 'list-item';
+            listItem.innerHTML = `
+                <div class="emoji">${emojis[index % emojis.length]}</div>
+                <div>${nickname}</div>
+            `;
+            nicknamesList.appendChild(listItem);
+        });
+        
+        // Populate Instagram accounts list
+        const instagramList = document.getElementById('instagramList');
+        instagramAccounts.forEach((account) => {
+            const listItem = document.createElement('div');
+            listItem.className = 'list-item';
+            listItem.innerHTML = `
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNNDQ4IDQ0OEg2NEMyOC43IDQ0OCAwIDQxOS4zIDAgMzg0VjEyOGMwLTM1LjMgMjguNy02NCA2NC02NGgzODRjMzUuMyAwIDY0IDI4LjcgNjQgNjR2MjU2YzAgMzUuMy0yOC43IDY0LTY0IDY0ek0zODQgMTI4YzAtMzUuMy0yOC43LTY0LTY0LTY0cy02NCAyOC43LTY0IDY0czI4LjcgNjQgNjQgNjRzNjQtMjguNyA2NC02NHptLTk2IDY0YzAtNTMuMDItNDIuOTgtOTYtOTYtOTZzLTk2IDQyLjk4LTk2IDk2czQyLjk4IDk2IDk2IDk2czk2LTQyLjk4IDk2LTk2ek0zODQgNDE2YzAtMTcuNjctMTQuMzMtMzItMzItMzJIMTYwYy0xNy42NyAwLTMyIDE0LjMzLTMyIDMyczE0LjMzIDMyIDMyIDMyaDE5MmMxNy42NyAwIDMyLTE0LjMzIDMyLTMyeiIvPjwvc3ZnPg==" class="instagram-icon" alt="Instagram">
+                <div>
+                    <div>${account.name}</div>
+                    <div><a href="https://instagram.com/${account.handle}" target="_blank" style="color: var(--highlight);">@${account.handle}</a></div>
+                </div>
+            `;
+            instagramList.appendChild(listItem);
+        });
+        
+        // Visitor counter
+        let visitCount = localStorage.getItem('visitCount');
+        if (!visitCount) {
+            visitCount = 0;
+        }
+        visitCount++;
+        localStorage.setItem('visitCount', visitCount);
+        document.getElementById('count').textContent = visitCount;
+        
+        // Password protection for editing
+        const settingsBtn = document.getElementById('settingsBtn');
+        const passwordModal = document.getElementById('passwordModal');
+        const passwordInput = document.getElementById('passwordInput');
+        const passwordSubmit = document.getElementById('passwordSubmit');
+        
+        let editMode = false;
+        
+        settingsBtn.addEventListener('click', () => {
+            if (!editMode) {
+                passwordModal.style.display = 'flex';
+            } else {
+                disableEditMode();
+            }
+        });
+        
+        passwordSubmit.addEventListener('click', () => {
+            if (passwordInput.value === 'MATRIX') {
+                enableEditMode();
+                passwordModal.style.display = 'none';
+                passwordInput.value = '';
+            } else {
+                alert('Incorrect password!');
+                passwordInput.value = '';
+            }
+        });
+        
+        function enableEditMode() {
+            editMode = true;
+            settingsBtn.textContent = '💾';
+            settingsBtn.style.background = 'var(--highlight)';
+            
+            // Make all content editable
+            const editableElements = document.querySelectorAll('.section, .toc, header');
+            editableElements.forEach(el => {
+                el.contentEditable = true;
+                el.classList.add('edit-mode');
+            });
+            
+            alert('Edit mode enabled! Click on any text to edit. Click the save button when done.');
+        }
+        
+        function disableEditMode() {
+            editMode = false;
+            settingsBtn.textContent = '⚙️';
+            settingsBtn.style.background = 'var(--accent)';
+            
+            // Disable editing
+            const editableElements = document.querySelectorAll('.section, .toc, header');
+            editableElements.forEach(el => {
+                el.contentEditable = false;
+                el.classList.remove('edit-mode');
+            });
+            
+            alert('Edit mode disabled. Changes are saved automatically.');
+        }
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === passwordModal) {
+                passwordModal.style.display = 'none';
+                passwordInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
