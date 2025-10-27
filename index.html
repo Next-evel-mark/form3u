@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>𝐓𝐇𝐄𝐄 𝐔 𝐂𝐇𝐑𝐎𝐍𝐈𝐂𝐋𝐄𝐒</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1: #050816;
+    --bg2: #071028;
+    --neon-p: #b16cff; /* purple */
+    --neon-b: #41b3ff; /* electric blue */
+    --neon-pink: #ff6db6;
+    --muted: rgba(255,255,255,0.7);
+    --card: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    --glass: rgba(255,255,255,0.03);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:Inter,system-ui,Roboto,Arial;
+    color:#e9f2ff;
+    background: radial-gradient(1200px 500px at 10% 10%, rgba(177,108,255,0.07), transparent),
+                radial-gradient(1000px 400px at 95% 90%, rgba(65,179,255,0.04), transparent),
+                linear-gradient(180deg,var(--bg1),var(--bg2));
+    -webkit-font-smoothing:antialiased;
+    padding:20px;
+  }
+  .container { max-width:1200px; margin:0 auto; }
+  .topbar{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:18px; }
+  h1{ font-weight:800; letter-spacing:6px; color:var(--neon-p); margin:0; font-size:34px; text-shadow:0 6px 30px rgba(177,108,255,0.12); }
+  .subtitle{ color:var(--muted); font-size:14px; }
+  .subtitle a{ color:#fff; font-weight:700; text-decoration:none; margin:0 4px; }
+  .controls{ display:flex; gap:10px; align-items:center; }
+  .btn{ background:transparent; border:1px solid rgba(255,255,255,0.06); padding:8px 12px; border-radius:10px; cursor:pointer; color:#e9f2ff; font-weight:700; }
+  .layout{ display:grid; grid-template-columns:320px 1fr; gap:20px; }
+  @media (max-width:900px){ .layout{ grid-template-columns:1fr; } h1{ font-size:26px; letter-spacing:2px } }
+  .card{ background:var(--card); border-radius:12px; padding:14px; border:1px solid rgba(255,255,255,0.03); box-shadow:0 8px 30px rgba(2,6,18,0.6); }
+  .toc a{ display:block; padding:8px; border-radius:8px; color:var(--muted); text-decoration:none; margin-bottom:6px; }
+  .toc a:hover{ background:rgba(65,179,255,0.03); color:#fff; }
+  .member-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+  .member{ display:flex; gap:10px; align-items:center; padding:10px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); border:1px solid rgba(255,255,255,0.02); }
+  .avatar{ width:46px; height:46px; display:grid; place-items:center; border-radius:10px; font-size:20px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03); }
+  .name{ font-weight:800; color:#fff; }
+  .small{ font-size:12px; color:var(--muted); }
+  .ig-item{ display:flex; gap:10px; align-items:center; padding:8px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); }
+  .ig-badge{ width:44px; height:44px; display:grid; place-items:center; border-radius:50%; border:1px solid rgba(255,255,255,0.04); background:linear-gradient(135deg,var(--neon-p),var(--neon-b)); color:#fff; font-weight:800; }
+  .neon-line{ height:4px; border-radius:6px; background: linear-gradient(90deg,var(--neon-p),var(--neon-b),var(--neon-pink)); margin:14px 0; box-shadow:0 8px 44px rgba(177,108,255,0.07); }
+  footer{ margin-top:18px; text-align:center; color:var(--muted); font-size:13px; }
+  /* Settings panel */
+  .settings-panel{ position:fixed; left:18px; top:18px; background:linear-gradient(180deg,#0b1220,#071020); padding:12px; border-radius:12px; z-index:999; border:1px solid rgba(255,255,255,0.03); box-shadow:0 10px 40px rgba(3,7,18,0.7); }
+  .hidden{ display:none; }
+  input, textarea, select{ background:transparent; color:#eaf2ff; border:1px solid rgba(255,255,255,0.04); padding:8px; border-radius:8px; width:100%; }
+  .muted-2{ color:rgba(255,255,255,0.6); font-size:13px; }
+  .chat-box{ max-height:280px; overflow:auto; padding:8px; border-radius:8px; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); border:1px solid rgba(255,255,255,0.02); }
+  .msg{ margin-bottom:8px; padding:8px; border-radius:8px; background:rgba(255,255,255,0.01); }
+  .reply{ margin-left:12px; font-size:13px; color:var(--muted); }
+  .badge{ padding:6px 8px; border-radius:8px; background:rgba(255,255,255,0.03); font-weight:700; color:#fff; }
+  .upload-preview img{ max-width:100%; border-radius:8px; display:block; margin-top:8px; }
+  code{ background:rgba(255,255,255,0.03); padding:4px 6px; border-radius:6px; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="topbar">
+    <div>
+      <h1>𝐓𝐇𝐄𝐄 𝐔 𝐂𝐇𝐑𝐎𝐍𝐈𝐂𝐋𝐄𝐒</h1>
+      <div class="subtitle" id="subtitle">Developed by
+        <a href="https://instagram.com/next_level_mark" target="_blank">𝕸𝖆𝖗𝖐</a>
+        under
+        <a href="https://instagram.com/har.*.low" target="_blank">𝕳𝖆𝖗𝖑𝖔𝖜</a>
+        and
+        <a href="https://instagram.com/mar.c.e.l_" target="_blank">𝕸𝖆𝖗𝖈𝖊𝖑</a>'s Instruction
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="badge" id="visitCount">Visits: --</div>
+      <button class="btn" id="settingsBtn">⚙ Settings</button>
+      <button class="btn" id="topBtn">⬆ Top</button>
+    </div>
+  </div>
+
+  <div class="neon-line"></div>
+
+  <div class="layout">
+    <!-- LEFT: TOC -->
+    <aside class="card">
+      <strong style="font-size:16px">Table of contents</strong>
+      <nav class="toc" style="margin-top:8px">
+        <a href="#members">1. Members</a>
+        <a href="#teachers">2. Teachers</a>
+        <a href="#nicknames">3. Nicknames</a>
+        <a href="#insta">4. Instagram accounts</a>
+        <a href="#classgees">5. Class Gees</a>
+        <a href="#keythings">6. Key things F3</a>
+        <a href="#memes">7. Class memes</a>
+        <a href="#backbench">8. Back bencher's Desk</a>
+        <a href="#about">9. About Mark, Harlow and Marcel</a>
+        <a href="#community">𝙲𝚘𝚖𝚖𝚞𝚗𝚒𝚝𝚢 𝚌𝚑𝚊𝚝 𝚛𝚘𝚘𝚖</a>
+      </nav>
+      <div style="margin-top:12px" class="small muted-2">
+        Editing and advanced features are password protected.
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main>
+      <!-- Members -->
+      <section id="members" class="card" data-key="membersContent">
+        <h2>1. Members</h2>
+        <div class="member-grid" id="membersGrid"></div>
+      </section>
+
+      <!-- Teachers -->
+      <section id="teachers" class="card" data-key="teachersContent" style="margin-top:12px">
+        <h2>2. Teachers</h2>
+        <div class="member-grid" id="teachersGrid"></div>
+      </section>
+
+      <!-- Nicknames -->
+      <section id="nicknames" class="card" data-key="nicknamesContent" style="margin-top:12px">
+        <h2>3. Nicknames</h2>
+        <div id="nickList" class="small"></div>
+      </section>
+
+      <!-- Instagram accounts -->
+      <section id="insta" class="card" data-key="instaContent" style="margin-top:12px">
+        <h2>4. Instagram accounts</h2>
+        <div id="igList" style="margin-top:12px"></div>
+      </section>
+
+      <!-- Class Gees -->
+      <section id="classgees" class="card" data-key="classgeesContent" style="margin-top:12px">
+        <h2>5. Class Gees</h2>
+        <div style="font-weight:800; color:var(--neon-b); margin-bottom:8px">ilumingwati</div>
+        <ol>
+          <li>Marcelo</li>
+        </ol>
+      </section>
+
+      <!-- Key things -->
+      <section id="keythings" class="card" data-key="keythingsContent" style="margin-top:12px">
+        <h2>6. Key things F3</h2>
+        <div style="margin-bottom:8px">
+          <strong>Breko:</strong> Response ya tbt akisema ako na do
+        </div>
+        <div style="margin-bottom:8px">
+          <strong>Silent fans:</strong> Vita ya dero na athu
+        </div>
+        <div style="margin-bottom:8px">
+          <strong>2. Doggy</strong>
+        </div>
+        <div style="margin-top:12px; font-weight:800">Suspe</div>
+        <ol>
+          <li>Keffa</li>
+        </ol>
+      </section>
+
+      <!-- Memes -->
+      <section id="memes" class="card" data-key="memesContent" style="margin-top:12px">
+        <h2>7. Class memes</h2>
+        <div class="small muted-2">Anyone can submit a meme (image) or type a meme. Admins can also upload from Settings when unlocked.</div>
+
+        <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap">
+          <input id="memeText" placeholder="Type a meme text..." />
+          <input id="memeFile" type="file" accept="image/*" />
+          <button class="btn" id="submitMeme">Submit</button>
+        </div>
+
+        <div id="memesFeed" style="margin-top:12px"></div>
+      </section>
+
+      <!-- Back bencher -->
+      <section id="backbench" class="card" data-key="backbenchContent" style="margin-top:12px">
+        <h2>8. Back bencher's Desk</h2>
+        <div class="small muted-2">When unlocked, the admin can set this content directly from Settings.</div>
+        <div id="backContent" style="margin-top:8px"></div>
+      </section>
+
+      <!-- About -->
+      <section id="about" class="card" data-key="aboutContent" style="margin-top:12px">
+        <h2>9. About Mark, Harlow and Marcel</h2>
+        <div class="small muted-2">Project created by the class. Click the Instagram badges for profiles.</div>
+      </section>
+
+      <!-- Community Chat -->
+      <section id="community" class="card" style="margin-top:12px">
+        <h2>𝙲𝚘𝚖𝚖𝚞𝚗𝚒𝚝𝚢 𝚌𝚑𝚊𝚝 𝚛𝚘𝚘𝚖</h2>
+        <div class="small muted-2">Choose a username (no signup), send anonymous messages. Everyone can reply (local to this browser).</div>
+
+        <div style="display:flex; gap:8px; margin-top:8px; align-items:center; flex-wrap:wrap">
+          <input id="chatUser" placeholder="Enter a username (visible)" style="max-width:240px" />
+          <input id="chatMsg" placeholder="Type a message..." style="flex:1" />
+          <button class="btn" id="sendChat">Send</button>
+        </div>
+
+        <div class="chat-box" id="chatBox" style="margin-top:12px"></div>
+      </section>
+
+      <footer class="card" style="margin-top:18px">
+        <div>Made with neon vibes • <span id="visitorNote">Visitor counter (this browser)</span></div>
+      </footer>
+    </main>
+  </div>
+</div>
+
+<!-- Floating Settings Panel -->
+<div id="settingsPanel" class="settings-panel hidden" aria-hidden="true">
+  <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px">
+    <strong>Settings</strong>
+    <div style="display:flex; gap:6px">
+      <button class="btn" id="closeSettings">Close</button>
+    </div>
+  </div>
+
+  <!-- Password box (we do NOT show the real password anywhere) -->
+  <div id="pwBox">
+    <label class="small muted-2">Enter admin password to unlock advanced settings</label>
+    <input id="pwInput" type="password" placeholder="Password" />
+    <div style="display:flex; gap:8px; margin-top:8px">
+      <button class="btn" id="unlockBtn">Unlock</button>
+      <button class="btn" id="cancelUnlock">Cancel</button>
+    </div>
+    <div id="pwMsg" class="small" style="margin-top:8px"></div>
+  </div>
+
+  <!-- Admin controls -->
+  <div id="adminBox" class="hidden">
+    <div style="margin-bottom:8px">
+      <label class="small muted-2">Edit mode (makes sections editable)</label>
+      <div style="display:flex; gap:8px; margin-top:6px">
+        <button class="btn" id="toggleEdit">Toggle Edit Mode</button>
+        <button class="btn" id="saveEdits">Save Edits</button>
+        <button class="btn" id="clearSaved">Clear Saved Edits</button>
+      </div>
+    </div>
+
+    <hr style="border:none; height:1px; background:rgba(255,255,255,0.03); margin:8px 0" />
+
+    <div style="margin-bottom:8px">
+      <label class="small muted-2">Upload background music (mp3). Upload replaces current background music for this browser.</label>
+      <input id="musicFile" type="file" accept="audio/*" />
+      <div style="display:flex; gap:8px; margin-top:8px">
+        <button class="btn" id="uploadMusic">Upload & Set Music</button>
+        <button class="btn" id="stopMusic">Stop Music</button>
+      </div>
+      <div class="small muted-2" style="margin-top:6px">Tip: place a file named <code>default-music.mp3</code> next to this HTML to have it auto-loaded as default.</div>
+    </div>
+
+    <hr style="border:none; height:1px; background:rgba(255,255,255,0.03); margin:8px 0" />
+
+    <div style="margin-bottom:8px">
+      <label class="small muted-2">Upload a meme (admin-only) — will appear in the memes feed</label>
+      <input id="adminMemeFile" type="file" accept="image/*" />
+      <button class="btn" id="adminUploadMeme" style="margin-top:8px">Upload Meme</button>
+    </div>
+
+    <div style="margin-top:10px" class="small muted-2">When unlocked you can edit sections directly and save them to this browser.</div>
+  </div>
+
+</div>
+
+<!-- Background audio player (hidden controls; admin can upload music) -->
+<audio id="bgAudio" loop preload="metadata" style="display:none"></audio>
+
+<script>
+/* ============================
+   Data & initial lists
+   ============================ */
+const membersArr = [
+"𝐕𝐢𝐜𝐭𝐨𝐫","𝐃𝐚𝐧𝐳𝐚","𝐊𝐞𝐟𝐟𝐚","𝐂𝐞𝐞-𝐤𝐚𝐲","𝐂𝐡𝐞𝐬𝐢𝐧𝐞𝐧","𝐋𝐢𝐨𝐧𝐞𝐥","𝐉𝐚𝐭𝐞𝐥𝐨","𝐀𝐧𝐭𝐨","𝐑𝐚𝐦𝐬𝐞𝐲","𝐁𝐚𝐫𝐨𝐝𝐚",
+"𝐌𝐚𝐫𝐜𝐞𝐥𝐨","𝐎𝐥𝐢𝐧𝐠𝐚","𝐎𝐥𝐢𝐧𝐝𝐚","𝐇𝐚𝐫𝐥𝐨𝐰","𝐁𝐞𝐭𝐡𝐮𝐞𝐥","𝐃𝐫.𝐌𝐚𝐭𝐭𝐢","𝐀𝐧𝐲𝐚𝐧𝐠𝐚","𝐊𝐢𝐫𝐤","𝐍𝐚𝐤𝐢𝐭𝐚𝐫𝐞","𝐒𝐡𝐚𝐰𝐧",
+"𝐌𝐰𝐞𝐧𝐝𝐰𝐚","𝐕𝐢𝐜𝐭𝐨𝐫","𝐃𝐢𝐬𝐦𝐮𝐬","𝐓𝐫𝐞𝐯𝐨𝐫","𝐁𝐞𝐣𝐚𝐡","𝐋𝐮𝐤𝐮𝐬𝐢","𝐖𝐚𝐲𝐧𝐞","𝐑𝐨𝐛𝐢𝐧","𝐊𝐢𝐧𝐨𝐭𝐢","𝐆𝐚𝐛𝐮",
+"𝐃𝐚𝐩𝐚𝐬𝐡","𝐀𝐧𝐚𝐚𝐧","𝐊𝐡𝐢𝐬𝐚","𝐑𝐨𝐫𝐨","𝐓𝐚𝐧𝐮𝐢","𝐌𝐚𝐫𝐤","𝐁𝐮𝐫𝐚𝐥𝐞","𝐁𝐢𝐝𝐞𝐧","𝐀𝐯𝐞𝐝𝐢","𝐏𝐮𝐫𝐯𝐞𝐥",
+"𝐀𝐥𝐮𝐤𝐰𝐞","𝐀𝐭𝐡𝐮𝐦𝐚𝐧","𝐀𝐛𝐝𝐢","𝐎𝐰𝐞𝐧","𝐓𝐫𝐞𝐯𝐨𝐫","𝐏𝐞𝐭𝐞𝐫","𝐊𝐢𝐩𝐭𝐨𝐨","𝐄𝐦𝐚𝐜𝐡","𝐒𝐭𝐚𝐧𝐧𝐨","𝐉𝐨𝐛"
+];
+
+const teachersArr = [
+"𝗠𝗿.𝗪𝗮𝗻𝗱𝗮","𝗺𝗿𝘀.𝗟𝗶𝗹𝗶𝗮𝗻","𝗠𝗿𝘀.𝗪𝗮𝗯𝘄𝗶𝗹𝗲","𝗠𝗿.𝗘𝗿𝗶𝗰","𝗠𝗿.𝗟𝘂𝗸𝗼𝗿𝗶𝘁𝗼","𝗠𝗿.𝗡𝘆𝗼𝗻𝗴𝗲𝘀𝗮","𝗠𝗿.𝗔𝗻𝗻𝗮𝗻","𝗠𝗿.𝗞𝗶𝘁𝘂𝘆𝗶","𝗠𝗿.𝗞𝗮𝘀𝗶𝗹𝗶","𝗠𝗿.𝗝𝗼𝘀𝗶𝗮𝗵"
+];
+
+const nicknamesArr = [
+"𝐕𝐢𝐜𝐭𝐨𝐫 — 𝐖𝐚𝐣𝐚𝐤𝐨𝐲𝐚","𝐙𝐚𝐰𝐚𝐝𝐢 — 𝐃𝐚𝐧𝐳𝐚","𝐂𝐞𝐜𝐢𝐥 — 𝐌𝐫.𝐂 𝐤𝐚𝐲","𝐂𝐡𝐞𝐬𝐢𝐧𝐞𝐧 — 𝐁𝐥𝐮𝐞 𝐛𝐥𝐚𝐜𝐤","𝐋𝐢𝐨𝐧𝐞𝐥 — 𝐂𝐡𝐢𝐞𝐟",
+"𝐉𝐚𝐭𝐞𝐥𝐨 — 𝐉𝐚𝐭𝐳𝐳","𝐀𝐧𝐭𝐨 — 𝐊𝐨𝐤𝐨𝐭𝐨","𝐑𝐚𝐦𝐬𝐞𝐲 — 𝐃𝐨𝐠𝐠𝐲","𝐒𝐚𝐦𝐮𝐞𝐥 — 𝐁𝐚𝐫𝐨𝐝𝐚","𝐊𝐡𝐢𝐬𝐚 — 𝐖𝐡𝐢𝐭𝐥𝐲","𝐃𝐚𝐦𝐢𝐚𝐧 — 𝐌𝐚𝐫𝐜𝐞𝐥","𝐎𝐥𝐢𝐧𝐠𝐚 — 𝐒𝐡𝐨𝐫𝐭 𝐦𝐚𝐧",
+"𝐉𝐚𝐜𝐤 — 𝐇𝐚𝐫𝐥𝐨𝐰","𝐁𝐞𝐭𝐡𝐮𝐞𝐥 — 𝐦𝐚𝐭𝐚𝐤𝐰𝐞𝐢","𝐑𝐨𝐲𝐦𝐨𝐧𝐝 — 𝐃𝐫.𝐌𝐚𝐭𝐭𝐫𝐞𝐬𝐬","𝐊𝐢𝐫𝐤 — 𝐋𝐚𝐥𝐞","𝐍𝐚𝐤𝐢𝐭𝐚𝐫𝐞 — 𝐍𝐚𝐤𝐢","𝐒𝐡𝐚𝐰𝐧 — 𝐅𝐚𝐭𝐭𝐲","𝐕𝐢𝐜𝐭𝐨𝐫 (𝐥𝐢𝐠𝐡𝐭𝐬𝐤𝐢𝐧) — 𝐎𝐭𝐢𝐬",
+"𝐃𝐢𝐬𝐦𝐮𝐬 — 𝐓𝐢𝐭𝐢𝐦𝐚","𝐓𝐫𝐞𝐯𝐨𝐫 — √𝐬𝐪𝐮𝐫𝐞 𝐫𝐨𝐨𝐭","𝐁𝐞𝐣𝐚𝐡 — 𝐅𝐫𝐞𝐞 𝐦𝐚𝐧","𝐒𝐢𝐦𝐢𝐲𝐮 — 𝐌𝐮𝐬𝐮𝐧𝐝𝐢","𝐊𝐨𝐥𝐨𝐥𝐢 — 𝐂𝐨𝐜𝐤𝐬","𝐑𝐨𝐛𝐢 — 𝐖𝐡𝐢𝐭𝐞 𝐛𝐨𝐲","𝐊𝐢𝐧𝐢𝐭𝐢 — 𝐌𝐂𝐀","𝐆𝐚𝐛𝐮 — 𝐊𝐚𝐩𝐮","𝐃𝐚𝐩𝐚𝐬𝐡 — 𝐖𝐨𝐫𝐢𝐚",
+"𝐀𝐧𝐧𝐚𝐧 — 𝐃𝐫.𝐤𝐨𝐟𝐟𝐢","𝐊𝐡𝐢𝐬𝐚 — 𝐒𝐚𝐤𝐚","𝐌𝐞𝐬𝐡𝐚𝐜𝐤 — 𝐓𝐚𝐣𝐢𝐫𝐢","𝐌𝐚𝐫𝐤(𝐰𝐚 𝐜𝐮) — 𝐋𝐢𝐠𝐡𝐭 𝐬𝐤𝐢𝐧","𝐌𝐚𝐫𝐤 (𝐨𝐟𝐟𝐢𝐜𝐢𝐚𝐥) — 𝐃𝐞𝐬𝐭𝐢𝐧𝐲😂😂"
+];
+
+const igAccounts = [
+  {display:"Marcel", handle:"mar.c.e.l_"},
+  {display:"Jack / Harlow", handle:"har.*.low"},
+  {display:"Mark", handle:"next_level_mark"},
+  {display:"Lionel", handle:"Bra.i.niac"},
+  {display:"Jatelo", handle:"s.*.a.*.i.*.n.*.t"},
+  {display:"Biden", handle:"Holy_sinn.er234"},
+  {display:"Ceekay", handle:"ckaynation.ke"},
+  {display:"Ceekay2", handle:"cee.kay.official."},
+  {display:"Khisa", handle:"wheatly77"},
+  {display:"Keffa", handle:"mad_pandar"},
+  {display:"Avedi", handle:"kid_mysterio"},
+  {display:"Gabu", handle:"Am_clean_guyz"},
+  {display:"Yeko", handle:"Roony_icyyy"},
+  {display:"Amwayi", handle:"elly_antos"},
+  {display:"Bad.boy G.", handle:"Goshen"},
+  {display:"Wayne", handle:"johnstone_coax"},
+  {display:"Baroda", handle:"prime_fantasy"},
+  {display:"Ezra", handle:"e_z_r_a3594"},
+  {display:"jay d", handle:"v.a.l.d.e.z"},
+  {display:"Henry", handle:"Toxic*.icy"},
+  {display:"Annan", handle:"Hood_nigga46"},
+  {display:"Bonwel", handle:"kibet_bonwel"},
+  {display:"Robi", handle:"freeky_.robin"},
+  {display:"Meshack", handle:"Brad_st.ar"},
+  {display:"Craig", handle:"yxng.ow3n"},
+  {display:"Brantany", handle:"brantany.bread"},
+  {display:"sikoo", handle:"sikoo_finest.bg"},
+  {display:"Mwendwa", handle:"tim.drk_ray"},
+  {display:"Gripheen", handle:"wrld.of.Gripheen"},
+  {display:"Naki", handle:"Toxic*.jaba"},
+  {display:"Kololi", handle:"waynebaraka"},
+  {display:"Ramsey", handle:"_.carsoninho"}
+];
+
+/* ============================
+   Helpers & storage
+   ============================ */
+function saveToLocal(key, value){ try{ localStorage.setItem('thee_'+key, JSON.stringify(value)); }catch(e){} }
+function loadFromLocal(key){ try{ const v=localStorage.getItem('thee_'+key); return v?JSON.parse(v):null }catch(e){return null} }
+
+function emojiForIndex(i){
+  const cycle = ["😀","😎","🦁","🤖","🫧","🔥","🌟","🎯","🎒","📚","🎵","😅","🤝","🌈","🐯","🦊","🍀","🪄","⭐","🎮"];
+  return cycle[i % cycle.length];
+}
+
+/* ============================
+   Render functions
+   ============================ */
+function renderMembers(){
+  const container = document.getElementById('membersGrid');
+  container.innerHTML = '';
+  const saved = loadFromLocal('membersContent');
+  const list = saved && saved.length ? saved : membersArr;
+  list.forEach((name,i)=>{
+    const div = document.createElement('div');
+    div.className = 'member';
+    div.innerHTML = `<div class="avatar">${emojiForIndex(i)}</div><div><div class="name">${name}</div><div class="small">Class member #${i+1}</div></div>`;
+    container.appendChild(div);
+  });
+}
+
+function renderTeachers(){
+  const container = document.getElementById('teachersGrid');
+  container.innerHTML = '';
+  const saved = loadFromLocal('teachersContent');
+  const list = saved && saved.length ? saved : teachersArr;
+  list.forEach((name,i)=>{
+    const div = document.createElement('div');
+    div.className = 'member';
+    div.innerHTML = `<div class="avatar">🎓</div><div><div class="name">${name}</div><div class="small">Teacher</div></div>`;
+    container.appendChild(div);
+  });
+}
+
+function renderNicknames(){
+  const container = document.getElementById('nickList');
+  container.innerHTML = '';
+  const saved = loadFromLocal('nicknamesContent');
+  const list = saved && saved.length ? saved : nicknamesArr;
+  const ol = document.createElement('ol');
+  list.forEach(item=>{
+    const li=document.createElement('li'); li.textContent=item; li.style.marginBottom='6px';
+    ol.appendChild(li);
+  });
+  container.appendChild(ol);
+}
+
+function renderIGs(){
+  const container = document.getElementById('igList');
+  container.innerHTML = '';
+  const saved = loadFromLocal('instaContent');
+  const list = saved && saved.length ? saved : igAccounts;
+  list.forEach(it=>{
+    const a = document.createElement('a');
+    a.className='ig-item';
+    // build Instagram url fairly robustly
+    const handleClean = encodeURIComponent((it.handle||'').replace(/\*/g,'').replace(/\s+/g,''));
+    a.href = 'https://instagram.com/' + handleClean;
+    a.target = '_blank';
+    a.innerHTML = `<div class="ig-badge">IG</div><div><div style="font-weight:800">${it.display}</div><div class="small">@${it.handle}</div></div>`;
+    container.appendChild(a);
+  });
+}
+
+/* ============================
+   Visitor counter
+   ============================ */
+function incVisit(){
+  try{
+    let n = parseInt(localStorage.getItem('thee_visit')||'0',10);
+    n = n+1;
+    localStorage.setItem('thee_visit', String(n));
+    document.getElementById('visitCount').textContent = 'Visits: ' + n;
+  } catch(e){
+    document.getElementById('visitCount').textContent = 'Visits: 1';
+  }
+}
+
+/* ============================
+   Memes feed (supports image & text)
+   ============================ */
+function loadMemes(){
+  const feed = loadFromLocal('memesFeed') || [];
+  const container = document.getElementById('memesFeed');
+  container.innerHTML = '';
+  feed.slice().reverse().forEach(entry=>{
+    const box = document.createElement('div'); box.style.marginBottom='12px';
+    const who = document.createElement('div'); who.className='small'; who.style.fontWeight=700; who.textContent = entry.user || 'Anon';
+    const text = document.createElement('div'); text.className='small'; text.textContent = entry.text || '';
+    box.appendChild(who);
+    if(entry.image){
+      const img = document.createElement('img'); img.src = entry.image; img.style.maxWidth='320px'; img.style.borderRadius='8px'; img.style.display='block'; img.style.marginTop='6px';
+      box.appendChild(img);
+    }
+    if(entry.text) box.appendChild(text);
+    container.appendChild(box);
+  });
+}
+
+document.getElementById('submitMeme').addEventListener('click', ()=>{
+  const text = document.getElementById('memeText').value.trim();
+  const file = document.getElementById('memeFile').files[0];
+  const user = 'Anon';
+  if(!text && !file){ alert('Type a meme or choose an image.'); return; }
+  if(file){
+    const reader = new FileReader();
+    reader.onload = ()=> {
+      const feed = loadFromLocal('memesFeed') || [];
+      feed.push({ user, text, image: reader.result, time: Date.now() });
+      saveToLocal('memesFeed', feed);
+      document.getElementById('memeText').value=''; document.getElementById('memeFile').value='';
+      loadMemes();
+    };
+    reader.readAsDataURL(file);
+  } else {
+    const feed = loadFromLocal('memesFeed') || [];
+    feed.push({ user, text, image:null, time: Date.now() });
+    saveToLocal('memesFeed', feed);
+    document.getElementById('memeText').value='';
+    loadMemes();
+  }
+});
+
+/* Admin upload meme */
+document.getElementById('adminUploadMeme')?.addEventListener('click', ()=>{
+  const f = document.getElementById('adminMemeFile').files[0];
+  if(!f){ alert('Pick an image'); return; }
+  const r = new FileReader();
+  r.onload = ()=> {
+    const feed = loadFromLocal('memesFeed') || [];
+    feed.push({ user:'Admin', text:'', image:r.result, time:Date.now() });
+    saveToLocal('memesFeed', feed); loadMemes(); alert('Meme uploaded');
+  };
+  r.readAsDataURL(f);
+});
+
+/* ============================
+   Community chat (local)
+   ============================ */
+function renderChat(){
+  const box = document.getElementById('chatBox');
+  box.innerHTML = '';
+  const msgs = loadFromLocal('chatMsgs') || [];
+  msgs.forEach(m=>{
+    const div = document.createElement('div'); div.className='msg';
+    const header = document.createElement('div'); header.style.fontWeight='700'; header.textContent = `${m.user || 'Anon'} • ${new Date(m.time).toLocaleString()}`;
+    const text = document.createElement('div'); text.textContent = m.text;
+    div.appendChild(header); div.appendChild(text);
+    // replies
+    if(m.replies && m.replies.length){
+      m.replies.forEach(r=>{
+        const rep = document.createElement('div'); rep.className='reply'; rep.textContent = `${r.user || 'Anon'} → ${r.text}`;
+        div.appendChild(rep);
+      });
+    }
+    const replyBtn = document.createElement('button'); replyBtn.className='btn'; replyBtn.style.marginTop='8px'; replyBtn.textContent='Reply';
+    replyBtn.addEventListener('click', ()=> {
+      const uname = prompt('Reply as username (visible):') || 'Anon';
+      const txt = prompt('Reply message:');
+      if(!txt) return;
+      // add reply
+      const msgs2 = loadFromLocal('chatMsgs') || [];
+      const idx = msgs2.findIndex(x=>x.time===m.time && x.text===m.text);
+      if(idx>=0){
+        msgs2[idx].replies = msgs2[idx].replies || [];
+        msgs2[idx].replies.push({ user: uname, text: txt, time: Date.now() });
+        saveToLocal('chatMsgs', msgs2);
+        renderChat();
+      }
+    });
+    div.appendChild(replyBtn);
+    box.appendChild(div);
+  });
+}
+
+document.getElementById('sendChat').addEventListener('click', ()=>{
+  const user = (document.getElementById('chatUser').value || '').trim() || 'Anon';
+  const text = (document.getElementById('chatMsg').value || '').trim();
+  if(!text){ alert('Type a message'); return; }
+  const msgs = loadFromLocal('chatMsgs') || [];
+  msgs.push({ user, text, time: Date.now(), replies: [] });
+  saveToLocal('chatMsgs', msgs);
+  document.getElementById('chatMsg').value='';
+  renderChat();
+});
+
+/* ============================
+   Settings & Admin (password-protected)
+   Note: the password is NOT displayed anywhere.
+   ============================ */
+let unlocked = false;
+let editMode = false;
+
+// The password is checked here. It is intentionally not printed anywhere.
+// (If you want to change it, update the string below.)
+const ADMIN_PASSWORD = 'MATRIX'; // DO NOT reveal this elsewhere in page content
+
+function openSettings(){ document.getElementById('settingsPanel').classList.remove('hidden'); }
+function closeSettings(){ document.getElementById('settingsPanel').classList.add('hidden'); }
+
+document.getElementById('settingsBtn').addEventListener('click', openSettings);
+document.getElementById('closeSettings').addEventListener('click', closeSettings);
+
+document.getElementById('unlockBtn').addEventListener('click', ()=>{
+  const v = document.getElementById('pwInput').value || '';
+  const msg = document.getElementById('pwMsg');
+  if(v === ADMIN_PASSWORD){
+    unlocked = true;
+    document.getElementById('pwBox').classList.add('hidden');
+    document.getElementById('adminBox').classList.remove('hidden');
+    msg.textContent = 'Unlocked — advanced settings available.';
+    msg.style.color = 'lightgreen';
+  } else {
+    msg.textContent = 'Incorrect password.';
+    msg.style.color = '#ff6b6b';
+  }
+});
+document.getElementById('cancelUnlock').addEventListener('click', ()=> closeSettings());
+
+document.getElementById('toggleEdit').addEventListener('click', ()=>{
+  if(!unlocked){ alert('Unlock admin first.'); return; }
+  editMode = !editMode;
+  const arr = ['members','teachers','nicknames','insta','classgees','keythings','memes','backbench','about'];
+  arr.forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    if(editMode){ el.setAttribute('contenteditable','true'); el.style.outline='2px dashed rgba(177,108,255,0.12)'; }
+    else{ el.removeAttribute('contenteditable'); el.style.outline='none'; }
+  });
+  alert('Edit mode ' + (editMode?'ON':'OFF') + '. Remember to Save Edits when done.');
+});
+
+document.getElementById('saveEdits').addEventListener('click', ()=>{
+  if(!unlocked){ alert('Unlock admin first.'); return; }
+  // Save members names and teachers if present
+  try{
+    const membersList = Array.from(document.querySelectorAll('#membersGrid .member .name')).map(n=>n.textContent.trim()).filter(Boolean);
+    if(membersList.length) saveToLocal('membersContent', membersList);
+    const teachersList = Array.from(document.querySelectorAll('#teachersGrid .member .name')).map(n=>n.textContent.trim()).filter(Boolean);
+    if(teachersList.length) saveToLocal('teachersContent', teachersList);
+    // nicknames
+    const nickNodes = Array.from(document.querySelectorAll('#nicknames ol li')).map(n=>n.textContent.trim()).filter(Boolean);
+    if(nickNodes.length) saveToLocal('nicknamesContent', nickNodes);
+    // insta
+    const instaNodes = Array.from(document.querySelectorAll('#insta .ig-item')).map(n=>{
+      const display = n.querySelector('div > div')?.textContent || '';
+      const handle = n.querySelector('.small')?.textContent?.replace('@','') || '';
+      return { display, handle };
+    });
+    if(instaNodes.length) saveToLocal('instaContent', instaNodes);
+    // other sections
+    const keys = ['classgeesContent','keythingsContent','memesContent','backbenchContent','aboutContent'];
+    keys.forEach(k=>{
+      const node = document.querySelector(`[data-key="${k}"]`);
+      if(node) saveToLocal(k, node.innerHTML);
+    });
+    alert('Saved edits to this browser.');
+    renderAll();
+  }catch(e){ alert('Could not save edits: '+e.message); }
+});
+
+document.getElementById('clearSaved').addEventListener('click', ()=>{
+  if(!confirm('Clear all saved data for this browser?')) return;
+  ['membersContent','teachersContent','nicknamesContent','instaContent','memesFeed','chatMsgs','classgeesContent','keythingsContent','memesContent','backbenchContent','aboutContent','thee_visit'].forEach(k=>localStorage.removeItem('thee_'+k));
+  location.reload();
+});
+
+/* Music upload */
+document.getElementById('uploadMusic').addEventListener('click', ()=>{
+  if(!unlocked){ alert('Unlock admin first.'); return; }
+  const f = document.getElementById('musicFile').files[0];
+  if(!f){ alert('Pick an audio file (mp3 or similar)'); return; }
+  const r = new FileReader();
+  r.onload = ()=> {
+    // store dataURL
+    saveToLocal('bgMusic', { name: f.name, data: r.result });
+    setBackgroundAudio(r.result);
+    alert('Background music set for this browser.');
+  };
+  r.readAsDataURL(f);
+});
+document.getElementById('stopMusic').addEventListener('click', ()=> {
+  const a = document.getElementById('bgAudio'); a.pause(); a.currentTime = 0;
+});
+
+/* Admin background meme uploader done earlier */
+
+/* ============================
+   Background audio loader
+   - If a file named `default-music.mp3` is placed next to the HTML, the audio tag will attempt to load it.
+   - Admin can upload a music file which will be stored in localStorage for this browser.
+   ============================ */
+function setBackgroundAudio(src){
+  const a = document.getElementById('bgAudio');
+  a.src = src;
+  try{ a.play(); }catch(e){}
+}
+(function initAudio(){
+  const saved = loadFromLocal('bgMusic');
+  if(saved && saved.data){
+    setBackgroundAudio(saved.data);
+  } else {
+    // Attempt to load default file next to this HTML (if you provide it)
+    const a = document.getElementById('bgAudio');
+    a.src = 'default-music.mp3'; // place a file named default-music.mp3 next to this HTML to auto-load
+    // Do not auto-play loudly; user can toggle from controls (controls are hidden by default).
+    // If browser blocks autoplay, the audio will not play until user interacts.
+  }
+})();
+
+/* ============================
+   Render everything on load
+   ============================ */
+function renderAll(){
+  renderMembers();
+  renderTeachers();
+  renderNicknames();
+  renderIGs();
+  loadMemes();
+  renderChat();
+  // backContent from saved if present
+  const back = loadFromLocal('backbenchContent');
+  if(back) document.getElementById('backContent').innerHTML = back;
+}
+incVisit();
+renderAll();
+
+/* ============================
+   Misc UI bindings
+   ============================ */
+document.getElementById('topBtn').addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+document.querySelectorAll('.toc a').forEach(a=>{
+  a.addEventListener('click', (e)=>{ e.preventDefault(); const id=a.getAttribute('href').slice(1); document.getElementById(id).scrollIntoView({behavior:'smooth'}); });
+});
+
+/* Allow pressing Enter to unlock */
+document.getElementById('pwInput').addEventListener('keypress', (e)=>{ if(e.key==='Enter') document.getElementById('unlockBtn').click(); });
+
+/* Small UX: if saved backbench content present, show it */
+document.getElementById('backContent').addEventListener('input', ()=>{ /* live edit saved via Save Edits */ });
+
+</script>
+</body>
+</html>
